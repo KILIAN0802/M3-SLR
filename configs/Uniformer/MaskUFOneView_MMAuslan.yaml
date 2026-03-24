@@ -31,7 +31,7 @@ training:
   label_smoothing: 0
   mixup: False
   alpha_mixup: 0.8
-  device: cuda:1
+  device: cuda:0
   overwrite: true
   log_freq: 1
   experiment_name: "MaskUFOneView MMAuslan center MaxFlow mask ratio 0.4"
@@ -80,5 +80,4 @@ inference:
 model:
   num_classes: 0
   maskFeat: True
-  pretraiend: True
-  pretrained_name: 'uniformer_small_k400_16x4'
+  pretraiend: false                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

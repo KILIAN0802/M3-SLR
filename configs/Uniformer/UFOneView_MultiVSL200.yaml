@@ -29,7 +29,7 @@ training:
   label_smoothing: 0
   mixup: True
   alpha_mixup: 0.8
-  device: cuda:0
+  device: cuda:1
   overwrite: true
   log_freq: 1
   experiment_name: "UFOneView MultiVLS200 from MaxFlow MaskUFOneView MultiVLS200 center 0.4"
@@ -78,7 +78,5 @@ inference:
 model:
   num_classes: 199
   maskFeat: False
-  pretraiend: True
+  pretrained: True
   pretrained_name: 'MaxFlowUFOneView_MultiVSL200_center'
-
-

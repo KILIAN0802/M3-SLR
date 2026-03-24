@@ -1,6 +1,6 @@
 from utils.video_augmentation import *
 from dataset.Uniformer_dataset import UFOneView_Dataset, UFThreeView_Dataset
-from dataset.MaskUniformer_dataset import MaskUFOneView_Dataset, MaskUFThreeView_Dataset
+from dataset.MaskUniformer_dataset import MaskUFOneView_Dataset                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 def build_dataset(dataset_cfg, split,model = None,**kwargs):
     dataset = None
@@ -16,6 +16,3 @@ def build_dataset(dataset_cfg, split,model = None,**kwargs):
     assert dataset is not None
     return dataset
 
-
-
-    

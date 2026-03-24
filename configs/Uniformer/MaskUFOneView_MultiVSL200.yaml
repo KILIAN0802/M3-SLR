@@ -20,8 +20,8 @@ data:
   SHOULDER_DIST_EPSILON: 1.2
   WRIST_DELTA: 0.15
   label_folder: label1-200/label/labelCenter
-  # label_folder: label1-200/label/labelLeft
-  # label_folder: label1-200/label/labelRight
+  #label_folder: label1-200/label/labelLeft
+  #label_folder: label1-200/label/labelRight
   data_type: labels
 training:
   coefficient:
@@ -41,7 +41,7 @@ training:
   num_workers: 12
   prefetch_factor: 2
   batch_size: 6 
-  total_epoch: 300 
+  total_epoch: 300
   learning_rate: 0.0001
   save_checkpoints: true
   scheduler_factor: 0.1
@@ -73,5 +73,5 @@ training:
 model:
   num_classes: 0
   maskFeat: True
-  pretraiend: True
+  pretrained: True
   pretrained_name: 'uniformer_small_k400_16x4'

@@ -68,5 +68,5 @@ inference:
 model:
   num_classes: 199
   embed_size: 512
-  pretraiend: True
+  pretrained: True
   pretrained_name: 'MaxFlowUFOneView_MultiVSL200_center'

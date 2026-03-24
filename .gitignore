@@ -1,0 +1,6 @@
+checkpoints/
+dataset/
+log/
+wandb/
+*.pth
+*.csv

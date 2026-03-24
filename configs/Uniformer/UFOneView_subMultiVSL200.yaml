@@ -80,7 +80,7 @@ inference:
 model:
   num_classes: 199
   maskFeat: False
-  pretraiend: True
+  pretrained: True
   pretrained_name: 'uniformer_small_k400_16x4'
 
 

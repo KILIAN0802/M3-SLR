@@ -80,11 +80,12 @@ class EarlyStopping:
         self.val_acc_max = val_acc
         
 class MyCustomLoss(nn.Module):
-    def __init__(self, label_smoothing=0):
+    def __init__(self, label_smoothing=0, weight_local=1):
         super(MyCustomLoss, self).__init__()
-        print("Use Label Smoothing: ", label_smoothing)
+        print("Use Label Smoothing: ", label_smoothing, " Weight Local: ", weight_local)
         self.crossentropy = nn.CrossEntropyLoss(label_smoothing=label_smoothing)
         self.mse = nn.MSELoss()
+        self.weight_local = weight_local
 
     def classification_loss_mixup(self, logits, labels_a, labels_b, lam, epoch):
         """

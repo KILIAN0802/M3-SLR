@@ -71,7 +71,7 @@ if __name__ == "__main__":
             logging.FileHandler(f"log/{cfg['data']['model_name']}/{cfg['training']['experiment_name']}" + ".log")
         ]
     )
-    Path(f"checkpoints/{cfg['data']['model_name']}/{cfg['training']['experiment_name']}").mkdir(parents=True, exist_ok=True)
+    Path(f"checkpoints/{cfg['data']['model_name']}/{cfg['                                                                               ']['experiment_name']}").mkdir(parents=True, exist_ok=True)
     Path(f"out-img/{cfg['data']['model_name']}/{cfg['training']['experiment_name']}").mkdir(parents=True, exist_ok=True)
     
     print("Starting " + f"{cfg['data']['model_name']}/{cfg['training']['experiment_name']}" + "...\n\n")

@@ -3,14 +3,22 @@ import torch
 
 def ufoneview_train_collate_fn_(batch):
     clip = torch.stack([s[0] for s in batch],dim = 0).permute(0,2,1,3,4) # b,t,c,h,w -> b,c,t,h,w
-    gloss = [s[1] for s in batch]
-    labels = torch.stack([s[2] for s in batch],dim = 0)
-    return {'clip':clip, 'gloss':gloss},labels
+    gloss = [s[1] for s in batch] if len(batch[0]) > 1 else None  # Keep gloss for logging if needed
+    if len(batch[0]) > 2:
+        labels = torch.stack([s[2] for s in batch],dim = 0)
+    else:
+        labels = torch.stack([s[1] for s in batch],dim = 0)  # Fallback to s[1] if no s[2]
+    return {'clip': clip}, labels  # Remove 'gloss' from input dictionary
+
 
 def ufoneview_infer_collate_fn_(batch):
     clip = torch.stack([s[0] for s in batch],dim = 0).permute(0,2,1,3,4) # b,t,c,h,w -> b,c,t,h,w
-    labels = torch.stack([s[2] for s in batch],dim = 0)
-    return {'clip':clip},labels
+    # Fix for index error: Use s[2] if tuple has 3 elements, else use s[1]
+    if len(batch[0]) > 2:
+        labels = torch.stack([s[2] for s in batch],dim = 0)
+    else:
+        labels = torch.stack([s[1] for s in batch],dim = 0)  # Fallback to s[1] if no s[2]
+    return {'clip':clip}, labels
 
 def maskufoneview_collate_fn_(batch):
     clip = torch.stack([s[0] for s in batch],dim = 0).permute(0,2,1,3,4)
@@ -22,27 +30,23 @@ def maskufoneview_collate_fn_(batch):
 
 def ufthreeview_train_collate_fn_(batch):
     rgb_left = torch.stack([s[0] for s in batch], dim=0).permute(0,2,1,3,4)
-
+    
     rgb_center = torch.stack([s[1] for s in batch], dim=0).permute(0,2,1,3,4)
-
+    
     rgb_right = torch.stack([s[2] for s in batch], dim=0).permute(0,2,1,3,4)
+    labels = torch.stack([s[3] for s in batch], dim=0)
+    return {'rgb_left': rgb_left, 'rgb_center': rgb_center, 'rgb_right': rgb_right}, labels
 
-    gloss = [s[3] for s in batch]
-
-    labels = torch.stack([s[4] for s in batch], dim=0)
-
-    return {'rgb_left': rgb_left, 'rgb_center': rgb_center, 'rgb_right': rgb_right, 'gloss': gloss}, labels
 
 def ufthreeview_infer_collate_fn_(batch):
     rgb_left = torch.stack([s[0] for s in batch], dim=0).permute(0,2,1,3,4)
-
+    
     rgb_center = torch.stack([s[1] for s in batch], dim=0).permute(0,2,1,3,4)
-
+    
     rgb_right = torch.stack([s[2] for s in batch], dim=0).permute(0,2,1,3,4)
-
-    labels = torch.stack([s[4] for s in batch], dim=0)
-
+    labels = torch.stack([s[3] for s in batch], dim=0)
     return {'rgb_left': rgb_left, 'rgb_center': rgb_center, 'rgb_right': rgb_right}, labels
+
 
 def build_dataloader(cfg, split, is_train=True, model = None,labels = None):
     dataset = build_dataset(cfg['data'], split,model,train_labels = labels)

@@ -3,10 +3,11 @@ from modelling.maskUniformer_base import build_mask_uniformer_small
 import torch
 from torch import nn
 import math
+import os
 import torch.nn.functional as F
 from torch.nn.init import trunc_normal_
 from flash_attn import flash_attn_qkvpacked_func
-from transformers import pipeline
+#from transformers import pipeline
 
 class UFOneView(nn.Module):
     def __init__(self, num_classes=199, maskFeat=False, pretraiend=False, pretrained_name=None, device=None, **kwargs):
@@ -406,8 +407,13 @@ class UsimKD(nn.Module):
             maskFeat=False,
             device=device
         )
-        ckpt_path = ""
-        self.teacher.load_state_dict(torch.load(ckpt_path,map_location='cpu'))
+        ckpt_path = kwargs.get('teacher_ckpt', '')  # đọc từ YAML nếu có
+        if ckpt_path and os.path.exists(ckpt_path):
+            print(f" Loading teacher checkpoint from: {ckpt_path}")
+            self.teacher.load_state_dict(torch.load(ckpt_path, map_location='cpu'))
+        else:
+            print("No valid teacher checkpoint found, skipping load_state_dict().")
+            
         for param in self.teacher.parameters():
             param.requires_grad = False
         self.teacher_classifier = self.teacher.head

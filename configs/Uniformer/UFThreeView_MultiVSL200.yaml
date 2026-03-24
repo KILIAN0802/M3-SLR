@@ -68,9 +68,9 @@ inference:
 model:
   num_classes: 199
   embed_size: 512
-  pretraiend: True
-  pretrained_left: 'MaxFlowUFOneView_MultiVSL200_left'
+  pretrained: True
+  pretrained_left:   'MaxFlowUFOneView_MultiVSL200_left'
   pretrained_center: 'MaxFlowUFOneView_MultiVSL200_center'
-  pretrained_right: 'MaxFlowUFOneView_MultiVSL200_right'
+  pretrained_right:  'MaxFlowUFOneView_MultiVSL200_right'
   co_attention: True
   maskFeat: False
